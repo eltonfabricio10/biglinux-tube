@@ -1,4 +1,3 @@
 # biglinux-tube
 
-**Interface for You-Get in BBV**
- 
+**Interface for youtube-dl in BBV**
