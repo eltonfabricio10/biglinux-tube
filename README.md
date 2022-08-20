@@ -1,3 +1,3 @@
 # biglinux-tube
 
-**Interface for youtube-dl in BBV**
+**Interface for yt-dlp in BBV**
