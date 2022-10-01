@@ -8,7 +8,7 @@
 
 # Dependências: yt-dlp, jq, gawk
 
-rm -f search.sh.htm
+rm -f search.htm
 
 # Qual plataforma buscar (yt=YouTube, gv=Google Video)
 # Which platform to search in
@@ -16,7 +16,7 @@ platform=yt
 
 # Termos que serão pesquisados
 # Search terms
-searchterms="big linux manjaro"
+searchterms="$1"
 
 # Quantidade de resultados
 # Number of results
@@ -43,7 +43,7 @@ BEGIN {
 "  border: 1px solid;",
 "}",
 "</style></head><body><table>",
-"<h1>Procurando por <i>" searchterms "</i> no " ( platform == "yt" ? "YouTube" : "Google Video" )  ":</h1>") > "search.sh.htm"
+"<h1>Procurando por <i>" searchterms "</i> no " ( platform == "yt" ? "YouTube" : "Google Video" )  ":</h1>") > "search.htm"
 }
 
 !id {
@@ -80,18 +80,20 @@ $0 !~ "^" id "$" {
   # Prints html
   print(\
 "<tr>",
-"<td><a href=\"https://www.youtube.com/watch?v=" id "\"><img src=\"" thumbnail "\" width=\"480\" height=\"360\"></a></td>",
+"<td><iframe width=\"220\" height=\"145\" src=\"https://www.youtube.com/embed/" id "?controls=1\"></iframe></td>",
 "<td><h2><a href=\"https://www.youtube.com/watch?v=" id "\">" title "</a></h2>",
 "<h3>" channel " - " views " visualizações</h3>",
 "<p>" description "</p></td>",
-"</tr>") > "search.sh.htm"
+"</tr>") > "search.htm"
   id = thumbnail = title = channel = views = description = ""
   next
 }
 
 END {
-  print("</table></body></html>") > "search.sh.htm"
+  print("</table></body></html>") > "search.htm"
 }
 
 '
 ### End gawk script
+
+bigbashview search.htm
